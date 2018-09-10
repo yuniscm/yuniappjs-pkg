@@ -5,8 +5,8 @@
   "license": "CC0-1.0",
   "dependencies": {
     "@material-ui/core": "^3.0.1",
-    "@yuniscm/biwascore": "file:../biwascore",
-    "@yuniscm/biwasyuni": "file:../biwasyuni",
+    "@yuniscm/biwascore": "*",
+    "@yuniscm/biwasyuni": "*",
     "browserfs": "^1.4.3",
     "create-react-class": "^15.6.3",
     "prop-types": "^15.6.2",
@@ -14,7 +14,7 @@
     "react-dom": "^16.4.2"
   },
   "bin": {
-      "yuniappjs-devserve": "./scripts/devserve.js"
+    "yuniappjs-devserve": "./scripts/devserve.js"
   },
   "devDependencies": {
     "express": "^4.16.3",
