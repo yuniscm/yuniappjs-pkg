@@ -1,6 +1,6 @@
 {
   "name": "@yuniscm/yuniappjs-pkg",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "CC0-1.0",
   "dependencies": {
@@ -17,8 +17,12 @@
     "yuniappjs-devserve": "./scripts/devserve.js"
   },
   "devDependencies": {
-    "express": "^4.16.3",
-    "fs-extra": "^7.0.0",
-    "parcel": "^1.9.7"
+      "express": "^4.16.3",
+      "fs-extra": "^7.0.0",
+      "parcel": "^1.9.7"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/yuniscm/yuniappjs-pkg.git"
   }
 }
