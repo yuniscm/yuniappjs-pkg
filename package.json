@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "CC0-1.0",
   "dependencies": {
+    "@githubprimer/octicons-react": "^8.1.0",
     "@material-ui/core": "^3.0.1",
+    "@material-ui/lab": "^3.0.0-alpha.18",
     "@yuniscm/biwascore": "*",
     "@yuniscm/biwasyuni": "*",
     "browserfs": "^1.4.3",
@@ -17,12 +19,12 @@
     "yuniappjs-devserve": "./scripts/devserve.js"
   },
   "devDependencies": {
-      "express": "^4.16.3",
-      "fs-extra": "^7.0.0",
-      "parcel": "^1.9.7"
+    "express": "^4.16.3",
+    "fs-extra": "^7.0.0",
+    "parcel": "^1.9.7"
   },
   "repository": {
-      "type": "git",
-      "url": "https://github.com/yuniscm/yuniappjs-pkg.git"
+    "type": "git",
+    "url": "https://github.com/yuniscm/yuniappjs-pkg.git"
   }
 }
