@@ -84,7 +84,9 @@ function do_process(buildtype, yuniroot, libpath, progs){
             app.get('*', function(req, res, next){
                 dir = dirmap[req.url];
                 if(dir){
-                    var sendpath = approot + "/" + dir + "/" + req.url;
+                    var sendpath = dir == "." ?
+                        process.cwd() + "/" + dir + "/" + req.url :
+                        /* approot + */ dir + "/" + req.url;
                     console.log("Send", sendpath);
                     res.setHeader("Content-Type", "text/plain");
                     res.sendFile(sendpath);
