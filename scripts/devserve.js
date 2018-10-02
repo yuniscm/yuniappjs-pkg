@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const builder = require("@yuniscm/yuniappjs-pkg/scripts/parcel-run.js");
+const builder = require("./parcel-run.js");
 
 const cwd = process.cwd();
 
