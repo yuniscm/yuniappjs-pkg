@@ -10,7 +10,8 @@ const root = document.getElementById('root');
 const async_loaders = {
     browserfs: import('browserfs'),
     materialui: import('@material-ui/core'),
-    materialuilab: import('@material-ui/lab')
+    materialuilab: import('@material-ui/lab'),
+    octicons: import('@githubprimer/octicons-react')
 };
 
 function js_load_async(name, cb){
