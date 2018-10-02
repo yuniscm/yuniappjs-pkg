@@ -9,7 +9,8 @@ const root = document.getElementById('root');
 
 const async_loaders = {
     browserfs: import('browserfs'),
-    materialui: import('@material-ui/core/umd/material-ui.production.min.js')
+    materialui: import('@material-ui/core'),
+    materialuilab: import('@material-ui/lab')
 };
 
 function js_load_async(name, cb){
