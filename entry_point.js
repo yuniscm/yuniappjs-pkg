@@ -14,6 +14,24 @@ const async_loaders = {
     octicons: import('@githubprimer/octicons-react')
 };
 
+function simplefetch(url, cb) {
+    window.fetch(url).then(res => {
+        if(res.ok){
+            res.json().then(data => {
+                cb(data);
+            }, err => {
+                console.log("simplefetch JSON error", err);
+                cb(false);
+            });
+        }else{
+            console.log("simplefetch error");
+            cb(false);
+        }
+    }, err => {
+        console.log("Something fatal.", err);
+    });
+}
+
 function js_load_async(name, cb){
     async_loaders[name].then(cb);
 };
@@ -48,6 +66,7 @@ function run(cfg){
     biwasyuni.add_module("document-root", root);
     biwasyuni.add_module("thiswrap", thiswrap);
     biwasyuni.add_module("pp", pp);
+    biwasyuni.add_module("simplefetch", simplefetch);
 
     d.render(e("div", null, "Starting..."), root); // debug
 
