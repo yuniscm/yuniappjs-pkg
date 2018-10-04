@@ -10,7 +10,9 @@ const fse = require('fs-extra');
 
 function do_process(buildtype, yuniroot, libpath, progs){
     function deploysource(filename){
-        fse.copySync(__dirname + "/../" + filename, "dist/" + filename);
+        const from = Path.join(__dirname, "/../", filename);
+        const to = Path.join("dist/" + filename);
+        fse.copySync(from, to);
     }
     function writeconfig(pth){
         var cfg = {
