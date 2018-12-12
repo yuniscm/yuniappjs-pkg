@@ -9,9 +9,9 @@ const fs = require('fs');
 const fse = require('fs-extra');
 
 function do_process(buildtype, yuniroot, libpath, progs){
-    function deploysource(filename){
+    function deploysource(base, filename){
         const from = Path.join(__dirname, "/../", filename);
-        const to = Path.join("dist/" + filename);
+        const to = Path.join(base + "/" + filename);
         fse.copySync(from, to);
     }
     function writeconfig(pth){
@@ -55,8 +55,8 @@ function do_process(buildtype, yuniroot, libpath, progs){
             genboot("dist/boot.scm", lst);
             writeconfig("dist/appconfig.js");
 
-            deploysource("index_debug.html");
-            deploysource("index_debug.js");
+            deploysource("dist", "index_debug.html");
+            deploysource("dist", "index_debug.js");
 
             // It seems detailedReport requires !watch
             var options = { 
@@ -100,13 +100,18 @@ function do_process(buildtype, yuniroot, libpath, progs){
 
             app.listen(8080);
         }else if(buildtype == "release"){
-            const input = Path.join(__dirname, "../index_release.html");
+            //const input = Path.join(__dirname, "../index_release.html");
+            const input = "release/index_release.html";
             // generate bootloader
             if(! fs.existsSync("release")){
                 fs.mkdirSync("release");
             }
             genboot("release/boot.scm", lst);
             writeconfig("release/appconfig.js");
+
+            deploysource("release", "index_release.html");
+            deploysource("release", "index_release.js");
+
 
             // Copy asset files to the destination
             lst.forEach(e => {

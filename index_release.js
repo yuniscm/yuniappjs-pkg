@@ -1,4 +1,4 @@
-var cfg = require("./release/appconfig.js");
-var ent = require("./entry_point.js");
+var cfg = require("./appconfig.js");
+var ent = require("@yuniscm/yuniappjs-pkg/entry_point.js");
 
 ent.run(cfg);
