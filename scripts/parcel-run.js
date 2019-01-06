@@ -1,7 +1,7 @@
 //var approot_url = "/release"; // NB: Override on debug build
 var approot_url = "";
 
-const bd = require('parcel');
+const bd = require('parcel-bundler');
 const express  = require('express');
 
 const Path = require('path');
