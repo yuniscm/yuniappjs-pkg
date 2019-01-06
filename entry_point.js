@@ -32,6 +32,30 @@ function simplefetch(url, cb) {
     });
 }
 
+function simplepost_json(url, datum, cb) {
+    let opts = {
+        headers:{
+            "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(datum)
+    };
+    window.fetch(url, opts).then(res => {
+        if(res.ok){
+            res.json().then(data => {
+                cb(data);
+            }, err => {
+                console.log("simplepost JSON error", err);
+                cb(false);
+            });
+        }else{
+            console.log("simplepost error");
+            cb(false);
+        }
+    }, err => {
+        console.log("Something fatal.", err);
+    });
+}
+
 function js_load_async(name, cb){
     async_loaders[name].then(cb);
 };
@@ -67,6 +91,7 @@ function run(cfg){
     biwasyuni.add_module("thiswrap", thiswrap);
     biwasyuni.add_module("pp", pp);
     biwasyuni.add_module("simplefetch", simplefetch);
+    biwasyuni.add_module("simplepost-json", simplepost_json);
 
     d.render(e("div", null, "Starting..."), root); // debug
 
