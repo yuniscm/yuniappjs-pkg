@@ -74,16 +74,13 @@ function do_process(buildtype, yuniroot, libpath, progs){
             // Root
             app.get("/", function(req, res){ res.redirect("/index.html")});
 
-            // Parcel application
-            app.use(bundler.middleware());
-
             // Construct file => dir mapping
             var dirmap = {};
-            lst.forEach(e => {dirmap[e.pth] = e.dir;});
+            lst.forEach(e => {dirmap["/" + e.pth] = e.dir;});
 
             // Static provider
             const approot = Path.join(__dirname, "..");
-            app.get('*', function(req, res, next){
+            app.use(function(req, res, next){
                 dir = dirmap[req.url];
                 if(dir){
                     var sendpath = dir == "." ?
@@ -93,10 +90,13 @@ function do_process(buildtype, yuniroot, libpath, progs){
                     res.setHeader("Content-Type", "text/plain");
                     res.sendFile(sendpath);
                 }else{
-                    console.log("Not found", req.url);
+                    console.log("(Parcel)", req.url);
                     next();
                 }
             });
+
+            // Parcel application
+            app.use(bundler.middleware());
 
             app.listen(8080);
         }else if(buildtype == "release"){
