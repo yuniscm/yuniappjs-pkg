@@ -93,6 +93,11 @@ function run(cfg){
     biwasyuni.add_module("simplefetch", simplefetch);
     biwasyuni.add_module("simplepost-json", simplepost_json);
 
+    // Supers
+    biwasyuni.add_module("XXXdocument", document);
+    biwasyuni.add_module("XXXwindow", window);
+    biwasyuni.add_module("XXXconsole", console);
+
     d.render(e("div", null, "Starting..."), root); // debug
 
     biwasyuni.run("(load \"boot.scm\")", 
