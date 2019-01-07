@@ -11,7 +11,10 @@ const async_loaders = {
     browserfs: import('browserfs'),
     materialui: import('@material-ui/core'),
     materialuilab: import('@material-ui/lab'),
-    octicons: import('@githubprimer/octicons-react')
+    octicons: import('@githubprimer/octicons-react'),
+    reactselect: import('react-select'),
+    reacthighlightwords: import('react-highlight-words'),
+    mdimaterialui: import('mdi-material-ui')
 };
 
 function simplefetch(url, cb) {
