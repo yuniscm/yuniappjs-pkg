@@ -37,8 +37,9 @@ function simplefetch(url, cb) {
 
 function simplepost_json(url, datum, cb) {
     let opts = {
+        method: "POST",
         headers:{
-            "Content-Type": "application/json; charset=utf-8"
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(datum)
     };
