@@ -1,6 +1,3 @@
-//var approot_url = "/release"; // NB: Override on debug build
-var approot_url = "";
-
 const bd = require('parcel-bundler');
 const express  = require('express');
 
@@ -8,17 +5,23 @@ const Path = require('path');
 const fs = require('fs');
 const fse = require('fs-extra');
 
-function do_process(buildtype, yuniroot, libpath, progs){
+function do_process(buildtype, yuniroot, libpath, progs, approot, extra){
     function deploysource(base, filename){
         const from = Path.join(__dirname, "/../", filename);
         const to = Path.join(base + "/" + filename);
         fse.copySync(from, to);
     }
-    function writeconfig(pth){
-        var cfg = {
-            approot: approot_url
-        };
-        var out = "module.exports = " + JSON.stringify(cfg) + ";\n";
+    function writeconfig(pth,approot,extra){
+        let out = "";
+        let approotstr = JSON.stringify(approot ? approot : "");
+        out += ("module.exports = " + "{ approot: " + approotstr + ",\n");
+
+        if(extra){
+            let extrastr = JSON.stringify(extra);
+            out += ("  extra : require(" + extrastr + "),\n");
+        }
+        out += "};\n";
+
         fs.writeFileSync(pth, out);
     };
 
@@ -37,7 +40,7 @@ function do_process(buildtype, yuniroot, libpath, progs){
     };
 
     // Application provider
-    function appprovider(lst){
+    function appprovider(lst, approot, extra){
         // lst = [ LIB* ]
         // LIB = {libname: #f/[name*], dir: DIR, pth: PATH}
 
@@ -53,7 +56,7 @@ function do_process(buildtype, yuniroot, libpath, progs){
                 fs.mkdirSync("dist");
             }
             genboot("dist/boot.scm", lst);
-            writeconfig("dist/appconfig.js");
+            writeconfig("dist/appconfig.js",approot,extra);
 
             deploysource("dist", "index_debug.html");
             deploysource("dist", "index_debug.js");
@@ -79,7 +82,6 @@ function do_process(buildtype, yuniroot, libpath, progs){
             lst.forEach(e => {dirmap["/" + e.pth] = e.dir;});
 
             // Static provider
-            const approot = Path.join(__dirname, "..");
             app.use(function(req, res, next){
                 dir = dirmap[req.url];
                 if(dir){
@@ -107,7 +109,7 @@ function do_process(buildtype, yuniroot, libpath, progs){
                 fs.mkdirSync("release");
             }
             genboot("release/boot.scm", lst);
-            writeconfig("release/appconfig.js");
+            writeconfig("release/appconfig.js",approot,extra);
 
             deploysource("release", "index_release.html");
             deploysource("release", "index_release.js");
@@ -126,7 +128,7 @@ function do_process(buildtype, yuniroot, libpath, progs){
                 minify: true,
                 scopeHoist: false,
                 sourceMaps: false,
-                publicUrl: approot_url
+                publicUrl: (approot ? approot : "")
 
             };
             var bundler = new bd(input, options);
@@ -139,14 +141,18 @@ function do_process(buildtype, yuniroot, libpath, progs){
     // Generate bootstrap filelist
     var by = require("@yuniscm/biwasyuni/biwasyuni_node.js");
     console.log("yuniroot = ", yuniroot);
-    by.gen_filelist(yuniroot, libpath, progs, appprovider);
+    by.gen_filelist(yuniroot, libpath, progs, lst => appprovider(lst, 
+                                                                 approot,
+                                                                 extra));
 }
 
 function run(config){
     do_process(config.buildtype, 
                config.yuniroot, 
                config.libpath, 
-               config.progs);
+               config.progs,
+               config.approot,
+               config.extra);
 }
 
 module.exports = {run:run};

@@ -101,6 +101,9 @@ function run(cfg){
     biwasyuni.add_module("XXXdocument", document);
     biwasyuni.add_module("XXXwindow", window);
     biwasyuni.add_module("XXXconsole", console);
+    if(cfg.extra){
+        cfg.extra.extrainit(biwasyuni);
+    }
 
     d.render(e("div", null, "Starting..."), root); // debug
 
