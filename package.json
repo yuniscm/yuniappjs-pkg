@@ -1,6 +1,6 @@
 {
   "name": "@yuniscm/yuniappjs-pkg",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "index.js",
   "license": "CC0-1.0",
   "dependencies": {
