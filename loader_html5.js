@@ -3,7 +3,8 @@
 var loadfs = function(baseurl) {
     var me = {
         readFile: function(path, coding, callback) {
-            window.fetch(baseurl + path).then(function(res){
+            window.fetch(baseurl + path,{credentials: "same-origin"})
+                .then(function(res){
                     if(res.ok){
                         res.text().then(function(text){
                             callback(false, text);
