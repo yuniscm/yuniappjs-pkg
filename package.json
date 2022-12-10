@@ -22,7 +22,7 @@
     "yuniappjs-devserve": "./scripts/devserve.js"
   },
   "devDependencies": {
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "fs-extra": "^7.0.0",
     "parcel-bundler": "^1.11.0"
   },
